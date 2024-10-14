@@ -239,7 +239,7 @@ const handleIncreaseQuantity = (index) => {
           setCart([]);
           setSelectedCustomer(null);
           // Use await to ensure the router.push is executed after the order is created
-          await router.push(`/payment?orderId=${order.orderId}`);
+          router.push(`/payment?orderId=${order.orderId}`);
         }
       } catch (error) {
         console.error("Error during checkout:", error);

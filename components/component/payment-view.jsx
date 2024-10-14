@@ -36,14 +36,16 @@ import Menu from "../component/menu"
 import { useSearchParams } from 'next/navigation'
 import orderAPI from '../../api/order'
 import formatVND from "../../utils/formatVND"
+import QrCodePayment from "./qrCodeCard"
 export default function paymentView() {
 
   const [order, setOrder] = useState({});
   const [paymentMethod, setPaymentMethod] = useState('');
   const [paymentAmount, setPaymentAmount] = useState(0);
-
+  const [isShowOrCode, setIsShowQrCode] = useState(false);
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
+  const [qrData, setQrData] = useState({});
 
   useEffect(() => {
     const fetchOrder = async () =>{
@@ -68,6 +70,14 @@ export default function paymentView() {
       payAmount += detail.price * detail.quantity;
     });
     setPaymentAmount(payAmount);
+  }
+
+  const openQrCode = () => {
+    setIsShowQrCode(true);
+  }
+
+  const closeQrCode = () => {
+    setIsShowQrCode(false);
   }
 
   if (!order) {
@@ -97,10 +107,11 @@ export default function paymentView() {
                 <BanknoteIcon className="h-5 w-5 mr-2" />
                 Pay with VNPay
               </Button>
-              <Button variant="outline">
+              <Button variant="outline" onClick={openQrCode}>
                 <QrCodeIcon className="h-5 w-5 mr-2" />
                 Pay with QR Code
               </Button>
+              <QrCodePayment qrData={qrData} openQr={isShowOrCode} onClose={closeQrCode}/>
             </CardContent>
           </Card>
         </div>

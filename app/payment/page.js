@@ -1,5 +1,5 @@
 
-import PaymentView from '../../components/component/payment-view'
+import PaymentView from '../../components/component/payment-dashboard'
 export default function page() {
   return (
     <div>

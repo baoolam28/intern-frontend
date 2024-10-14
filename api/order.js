@@ -30,6 +30,11 @@ const order = {
     const url = `/orders/${orderId}`;
     return axiosClient.get(url);
   },
+
+  paymentByCash(paymentData){
+    const url = '/orders/payment'
+    return axiosClient.put(url, paymentData)
+  },
 };
 
 export default order;
